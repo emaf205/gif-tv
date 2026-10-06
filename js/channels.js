@@ -1,455 +1,183 @@
 /**
  * GIF-TV: Net Art CRT Television
- * Verified Channels, Absurd GIFs Lineup, MTV Bumpers & Fallback Procedural Generators
- * 100% Open CORS, 100% Verified 200 OK CDN Endpoints
+ * Single Infinite Stream: Absurd Loops, Online Grabbing & Procedural Net Art
  */
 
-const TV_CHANNELS = [
-  {
-    id: 'ch01',
-    number: '01',
-    name: 'LIQUID MTV',
-    category: '90s BUMPERS & EXPERIMENTAL',
-    frequency: '181.25 MHz',
-    description: 'Bumper underground, Liquid Television, loghi morphing e visual d\'autore anni \'90.',
-    items: [
-      {
-        url: 'https://media.giphy.com/media/l41lI4bYmcsPJX9Go/giphy.gif',
-        title: 'LIQUID DREAMS & CHROMIUM',
-        artist: 'MTV EXPERIMENTAL LAB',
-        year: '1993',
-        album: 'BUMPER SEASONS VOL. 4'
-      },
-      {
-        url: 'https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif',
-        title: 'MORPHING CATHODE RAY',
-        artist: 'LIQUID TV COLLECTIVE',
-        year: '1992',
-        album: 'ACID ANIMATION HOUR'
-      },
-      {
-        url: 'https://media.giphy.com/media/l3vR16pONsV8cK36w/giphy.gif',
-        title: 'CYBER EYE PULSE',
-        artist: 'STUDIO PHOSPHOR',
-        year: '1994',
-        album: 'RGB NOISE ODYSSEY'
-      },
-      {
-        url: 'https://media.giphy.com/media/3o7TKsQ8ePqQyN1X6M/giphy.gif',
-        title: 'NEON TRANSMISSION 95',
-        artist: 'MTV NETWORK EUROPE',
-        year: '1995',
-        album: 'POST-PRIME IDENT'
-      },
-      {
-        url: 'https://media.giphy.com/media/xT9IgL6x9sT6wG7Hhe/giphy.gif',
-        title: 'PLASTICINE METAMORPHOSIS',
-        artist: 'CLAYMATION DADA',
-        year: '1991',
-        album: 'LIQUID LABS #2'
-      }
-    ]
-  },
-  {
-    id: 'ch02',
-    number: '02',
-    name: 'WEIRDCORE & SURREAL',
-    category: 'ABSURDIST NET ART',
-    frequency: '215.75 MHz',
-    description: 'Fisica impossibile, mondi liminali, creature poligonali e loop senza senso.',
-    items: [
-      {
-        url: 'https://media.giphy.com/media/d2Z4NRCUxsxZBvag/giphy.gif',
-        title: 'INFINITE POLYGONAL HEAD',
-        artist: 'DIMENSIONAL DRIFT',
-        year: '1998',
-        album: 'LIMINAL FREQUENCY'
-      },
-      {
-        url: 'https://media.giphy.com/media/3o85xsGXVuYh8lM3EQ/giphy.gif',
-        title: 'SURREAL JELLY DANCE',
-        artist: 'BLENDER SHADOWS',
-        year: '1997',
-        album: 'PHYSICS ENGINE BREAKDOWN'
-      },
-      {
-        url: 'https://media.giphy.com/media/3ohhwkKqF2lB5B8StW/giphy.gif',
-        title: 'GRAVITY MALFUNCTION',
-        artist: 'NET.VOID ARCHIVE',
-        year: '1995',
-        album: 'ZERO G DREAMS'
-      },
-      {
-        url: 'https://media.giphy.com/media/3o7TKMt1VVNkHV2PaE/giphy.gif',
-        title: 'TELEPATHIC HANDS',
-        artist: 'GLITCH FAIRY',
-        year: '1999',
-        album: 'BIZARRE LOOPS'
-      },
-      {
-        url: 'https://media.giphy.com/media/3o7TKF5DTH20UyoE8w/giphy.gif',
-        title: 'THE RUBBER MONOLITH',
-        artist: 'ANOMALY COLLECTIVE',
-        year: '1996',
-        album: 'UNREAL DREAMS'
-      }
-    ]
-  },
-  {
-    id: 'ch03',
-    number: '03',
-    name: '90s CYBERSPACE',
-    category: 'RETRO 3D & VAPORWAVE',
-    frequency: '243.50 MHz',
-    description: 'Silicon Graphics, griglie poligonali neon, occhiali VR e sogni digitali arcaici.',
-    items: [
-      {
-        url: 'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif',
-        title: 'HIGHWAY TO THE MAINFRAME',
-        artist: 'SILICON DREAMSCAPE',
-        year: '1995',
-        album: 'CYBERDELIA V1'
-      },
-      {
-        url: 'https://media.giphy.com/media/3o7abKhOpu0NwenH3O/giphy.gif',
-        title: 'NEON GEOMETRY VECTOR',
-        artist: 'AMIGA POWER LAB',
-        year: '1991',
-        album: 'WIREFRAME HORIZON'
-      },
-      {
-        url: 'https://media.giphy.com/media/26AHONQ99Rn7mMrVy/giphy.gif',
-        title: 'THE RENDERED PYRAMID',
-        artist: 'RAYTRACED REALITY',
-        year: '1994',
-        album: 'POLYGON OASIS'
-      },
-      {
-        url: 'https://media.giphy.com/media/3oKIPnAiaMCws8nOsE/giphy.gif',
-        title: 'MODEM HANDSHAKE DREAMS',
-        artist: 'DIAL-UP BREEZE',
-        year: '1997',
-        album: '56K KINETIC'
-      },
-      {
-        url: 'https://media.giphy.com/media/l41lT4n6ylgW2hh04/giphy.gif',
-        title: 'VIRTUAL SURFER 64',
-        artist: 'CYBERPUNK COMMODORE',
-        year: '1996',
-        album: 'DATAPOOL DRIFT'
-      }
-    ]
-  },
-  {
-    id: 'ch04',
-    number: '04',
-    name: 'ANALOG GLITCH',
-    category: 'VHS DISTORTION & BENDING',
-    frequency: '298.15 MHz',
-    description: 'Nastri magnetici masticati dal videoregistratore, tracking rotto e barre SMPTE.',
-    items: [
-      {
-        url: 'https://media.giphy.com/media/3ohs4w0OrUm5GIkB0I/giphy.gif',
-        title: 'REWIND HYSTERIA',
-        artist: 'CIRCUIT BENDER X',
-        year: '1992',
-        album: 'VCR PAUSE DRAG'
-      },
-      {
-        url: 'https://media.giphy.com/media/l41lFw057lAJQMwg0/giphy.gif',
-        title: 'CATHODE STATIC EXPLOSION',
-        artist: 'ANALOG VOID',
-        year: '1990',
-        album: 'INTERLACE TEAR'
-      },
-      {
-        url: 'https://media.giphy.com/media/26tn33aiTi1jkl6H6/giphy.gif',
-        title: 'SMPTE RAVE BARS',
-        artist: 'RGB DESYNC',
-        year: '1996',
-        album: 'BROADCAST TEST PATTERN'
-      },
-      {
-        url: 'https://media.giphy.com/media/3oKIPwoeGErMmaI43S/giphy.gif',
-        title: 'GHOST IN THE PHOSPHOR',
-        artist: 'NULL FREQUENCY',
-        year: '1993',
-        album: 'FEEDBACK LOOP #2'
-      },
-      {
-        url: 'https://media.giphy.com/media/l41YkxUUvM3iM7qPm/giphy.gif',
-        title: 'TRACKING DRIFT 1994',
-        artist: 'MAGNETIC DECAY',
-        year: '1994',
-        album: 'TAPE CORROSION V2'
-      }
-    ]
-  },
-  {
-    id: 'ch05',
-    number: '05',
-    name: 'ACID CARTOON',
-    category: 'PSYCHEDELIC RUBBERHOSE',
-    frequency: '331.40 MHz',
-    description: 'Cartoni animati d\'epoca deformati da acidi visivi e metamorfosi elastiche continue.',
-    items: [
-      {
-        url: 'https://media.giphy.com/media/l3q2K5jinAlChoCLS/giphy.gif',
-        title: 'BLINKING DISBELIEF',
-        artist: 'OPTICAL CARTOON DEPT',
-        year: '1994',
-        album: 'HYPNOTIC SATURDAY MORNING'
-      },
-      {
-        url: 'https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif',
-        title: 'BRAIN EXPANSION PARADE',
-        artist: 'PSYCHEDELIC FLEISCHER',
-        year: '1992',
-        album: 'RUBBERHOSE HALLUCINATION'
-      },
-      {
-        url: 'https://media.giphy.com/media/3o6Zt6KHxJTbXCnSvu/giphy.gif',
-        title: 'THE DANCING CAT SHADOW',
-        artist: 'INK & DISTORTION',
-        year: '1997',
-        album: 'NIGHTMARE CARTOON NETWORK'
-      },
-      {
-        url: 'https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif',
-        title: 'MELTING EYE SMILE',
-        artist: 'SURREAL CEL ANIMATION',
-        year: '1995',
-        album: 'LIQUID FACES'
-      },
-      {
-        url: 'https://media.giphy.com/media/3o7TKSjRrfIPjeiVyM/giphy.gif',
-        title: 'ELASTIC JUMP CYCLE',
-        artist: 'FRAME BY FRAME ECSTASY',
-        year: '1991',
-        album: 'INKBLOT GROOVE'
-      }
-    ]
-  },
-  {
-    id: 'ch06',
-    number: '06',
-    name: 'DEEP NET ART',
-    category: 'EARLY WEB & CYBER OCCULT',
-    frequency: '412.00 MHz',
-    description: 'Estetica geocities, ASCII ipnotica, finestre pop-up infinite e dadaismo digitale.',
-    items: [
-      {
-        url: 'https://media.giphy.com/media/ule4akeXnY9Mb2kfTM/giphy.gif',
-        title: 'ASCII RAIN MATRIX',
-        artist: 'JODI.ORGANISM',
-        year: '1996',
-        album: 'SOURCE CODE VISUAL'
-      },
-      {
-        url: 'https://media.giphy.com/media/l0ExncehJzexFpRHq/giphy.gif',
-        title: 'GLITCHED CURSOR RITUAL',
-        artist: 'DADA HYPERTEXT',
-        year: '1995',
-        album: 'HTML 1.0 PARADOX'
-      },
-      {
-        url: 'https://media.giphy.com/media/26FPnsRww5znqykIo/giphy.gif',
-        title: 'DIAL-UP PSYCHOSIS',
-        artist: 'TELNET PHANTOM',
-        year: '1996',
-        album: 'NET.REVENANT'
-      },
-      {
-        url: 'https://media.giphy.com/media/xT5LMHxhOfscxPfIfm/giphy.gif',
-        title: 'THE FLOATING WINDOW',
-        artist: 'BROWSER WANDERER',
-        year: '1998',
-        album: 'HYPERLINK ESCAPE'
-      },
-      {
-        url: 'https://media.giphy.com/media/l0HlQXkhXBukbpxLy/giphy.gif',
-        title: 'CYBER ENCRYPTION DANCE',
-        artist: 'ANONYMOUS SYSOP',
-        year: '1997',
-        album: 'BBS PROTOCOL'
-      }
-    ]
-  },
-  {
-    id: 'ch07',
-    number: '07',
-    name: 'COSMIC HYPNOSIS',
-    category: 'FRACTALS & VOID TRANCE',
-    frequency: '475.25 MHz',
-    description: 'Tunnel temporali a velocità curvatura, geometrie sacre lofi e viaggi cosmici.',
-    items: [
-      {
-        url: 'https://media.giphy.com/media/26BROqpt7pZ7sD1sc/giphy.gif',
-        title: 'INFINITE TUNNEL 2000',
-        artist: 'CELESTIAL RAYTRACE',
-        year: '1994',
-        album: 'WARP SPEED CASSETTE'
-      },
-      {
-        url: 'https://media.giphy.com/media/3o85xG8Xm4B6fUaUaA/giphy.gif',
-        title: 'FRACTAL MANDALA ZOOM',
-        artist: 'ASTRAL CRT',
-        year: '1993',
-        album: 'KALEIDOSCOPE ODYSSEY'
-      },
-      {
-        url: 'https://media.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif',
-        title: 'NEON BLACK HOLE',
-        artist: 'SUPERNOVA VISUALS',
-        year: '1996',
-        album: 'SINGULARITY FM'
-      },
-      {
-        url: 'https://media.giphy.com/media/3o7bu3X7X6f5kPGuCA/giphy.gif',
-        title: 'COSMIC TIME TRAVEL',
-        artist: 'HYPERSPACE RADIO',
-        year: '1995',
-        album: 'ORBITAL DRIFT'
-      },
-      {
-        url: 'https://media.giphy.com/media/l3V0ls4Nsz70K5x0A/giphy.gif',
-        title: 'INTERSTELLAR PULSE',
-        artist: 'RADIO ASTRONOMY LAB',
-        year: '1998',
-        album: 'DEEP SKY 98'
-      }
-    ]
-  },
-  {
-    id: 'ch08',
-    number: '08',
-    name: '16-BIT NOSTALGIA',
-    category: 'CORRUPTED RETRO GAMING',
-    frequency: '522.60 MHz',
-    description: 'Cartucce NES inclinate nello slot, sprite esplosi e schermate di game over surreali.',
-    items: [
-      {
-        url: 'https://media.giphy.com/media/3o6Zt8sE5AEUTNPQTC/giphy.gif',
-        title: 'TILTED CARTRIDGE GLITCH',
-        artist: 'ROM CORRUPTOR 99',
-        year: '1992',
-        album: 'RAM OVERFLOW BAZAAR'
-      },
-      {
-        url: 'https://media.giphy.com/media/xT9IgG50Fb7Mi0prBC/giphy.gif',
-        title: 'PIXEL VOID FIGHTER',
-        artist: 'ARCADE SURREALIST',
-        year: '1994',
-        album: 'STREET BRAWL ERROR'
-      },
-      {
-        url: 'https://media.giphy.com/media/l3q2w7T4R7lVn8b64/giphy.gif',
-        title: 'SPRITE EXPLOSION PARADE',
-        artist: 'DITHER MATRIX',
-        year: '1993',
-        album: 'MEGADRIVE FEVER'
-      },
-      {
-        url: 'https://media.giphy.com/media/3o7TKT7g8zFzK78fZe/giphy.gif',
-        title: 'CORRUPT LEVEL 99',
-        artist: 'CHIP GLITCH COLLECTIVE',
-        year: '1995',
-        album: 'STAGE 256'
-      },
-      {
-        url: 'https://media.giphy.com/media/3o7TKwmnDg59TFCbH2/giphy.gif',
-        title: 'GAME OVER HALLUCINATION',
-        artist: 'COIN OP PHANTOM',
-        year: '1991',
-        album: 'CONTINUE 09...'
-      }
-    ]
-  },
-  {
-    id: 'ch09',
-    number: '09',
-    name: 'LIVE FREQUENCY',
-    category: 'DYNAMIC PSYCHEDELIC STREAM',
-    frequency: '614.80 MHz',
-    description: 'Sintonizzatore dinamico continuo di stranezze digitali e visual net art.',
-    items: [
-      {
-        url: 'https://media.giphy.com/media/xT9IgH5uFmQn4R9Vq8/giphy.gif',
-        title: 'SPECTRUM ANOMALY',
-        artist: 'ANONYMOUS TRANSMITTER',
-        year: '1996',
-        album: 'TELEMETRY ECHO'
-      },
-      {
-        url: 'https://media.giphy.com/media/3o7TKx6j3rF8Z8z5kI/giphy.gif',
-        title: 'SYNCHRONIC DRIFT',
-        artist: 'WAVE SHAPER 01',
-        year: '1997',
-        album: 'FREQUENCY HOPPING'
-      },
-      {
-        url: 'https://media.giphy.com/media/xT9IgxO0f2qF8e4e76/giphy.gif',
-        title: 'ELECTRO-PLASTIC SURGE',
-        artist: 'NEURAL BENDER',
-        year: '1998',
-        album: 'LIVE SYNTHESIS'
-      },
-      {
-        url: 'https://media.giphy.com/media/3o7TKsR9e2r8j4t7k8/giphy.gif',
-        title: 'CHROMATIC HYPNOSIS',
-        artist: 'OPTICAL BROADCAST',
-        year: '1995',
-        album: 'RF CARRIER'
-      },
-      {
-        url: 'https://media.giphy.com/media/l3vR88x4d320m7k0e/giphy.gif',
-        title: 'KINETIC VORTEX 94',
-        artist: 'THE SIGNAL MACHINE',
-        year: '1994',
-        album: 'MICROWAVE LINK'
-      },
-      {
-        url: 'https://media.giphy.com/media/3o7TKVm3s5k4j4t7k8/giphy.gif',
-        title: 'CYBER HORIZON 2000',
-        artist: 'VIRTUAL HORIZON',
-        year: '1999',
-        album: 'END OF MILLENNIUM'
-      },
-      {
-        url: 'https://media.giphy.com/media/l3vR5j5j5j5j5j5j5j/giphy.gif',
-        title: 'ETERNAL REPEAT ODYSSEY',
-        artist: 'INFINITE LOOP LAB',
-        year: '1997',
-        album: 'TRANSMISSION COMPLETE'
-      }
-    ]
-  },
-  {
-    id: 'ch00',
-    number: '00',
-    name: 'THE VOID',
-    category: 'PURE ANALOG SNOW & GHOSTS',
-    frequency: '000.00 MHz',
-    description: 'Il canale non sintonizzato. Neve pura a 60Hz con segnali subliminali clandestini.',
-    isStaticChannel: true,
-    items: [
-      {
-        url: '',
-        title: 'CANALE NON SINTONIZZATO',
-        artist: 'IL RUMORE COSMICO DI FONDO',
-        year: 'ETERNAL',
-        album: 'WHITE NOISE FREQUENCY'
-      }
-    ]
-  }
+const ABSURD_GIF_COLLECTION = [
+  // 90s MTV Liquid & Experimental Loops
+  { id: 'l41lI4bYmcsPJX9Go', title: 'LIQUID DREAMS & CHROMIUM', artist: 'MTV EXPERIMENTAL LAB', year: '1993' },
+  { id: 'xT9IgzoKnwFNmISR8I', title: 'MORPHING CATHODE RAY', artist: 'LIQUID TV COLLECTIVE', year: '1992' },
+  { id: 'l3vR16pONsV8cK36w', title: 'CYBER EYE PULSE', artist: 'STUDIO PHOSPHOR', year: '1994' },
+  { id: '3o7TKsQ8ePqQyN1X6M', title: 'NEON TRANSMISSION 95', artist: 'MTV NETWORK EUROPE', year: '1995' },
+  { id: 'xT9IgL6x9sT6wG7Hhe', title: 'PLASTICINE METAMORPHOSIS', artist: 'CLAYMATION DADA', year: '1991' },
+
+  // Weirdcore & Surreal Physics
+  { id: 'd2Z4NRCUxsxZBvag', title: 'INFINITE POLYGONAL HEAD', artist: 'DIMENSIONAL DRIFT', year: '1998' },
+  { id: '3o85xsGXVuYh8lM3EQ', title: 'SURREAL JELLY DANCE', artist: 'BLENDER SHADOWS', year: '1997' },
+  { id: '3ohhwkKqF2lB5B8StW', title: 'GRAVITY MALFUNCTION', artist: 'NET.VOID ARCHIVE', year: '1995' },
+  { id: '3o7TKMt1VVNkHV2PaE', title: 'TELEPATHIC HANDS', artist: 'GLITCH FAIRY', year: '1999' },
+  { id: '3o7TKF5DTH20UyoE8w', title: 'THE RUBBER MONOLITH', artist: 'ANOMALY COLLECTIVE', year: '1996' },
+
+  // 90s Cyberspace & Vaporwave
+  { id: '3oEjI6SIIHBdRxXI40', title: 'HIGHWAY TO THE MAINFRAME', artist: 'SILICON DREAMSCAPE', year: '1995' },
+  { id: '3o7abKhOpu0NwenH3O', title: 'NEON GEOMETRY VECTOR', artist: 'AMIGA POWER LAB', year: '1991' },
+  { id: '26AHONQ99Rn7mMrVy', title: 'THE RENDERED PYRAMID', artist: 'RAYTRACED REALITY', year: '1994' },
+  { id: '3oKIPnAiaMCws8nOsE', title: 'MODEM HANDSHAKE DREAMS', artist: 'DIAL-UP BREEZE', year: '1997' },
+  { id: 'l41lT4n6ylgW2hh04', title: 'VIRTUAL SURFER 64', artist: 'CYBERPUNK COMMODORE', year: '1996' },
+
+  // Analog Glitch & VHS Tracking Tears
+  { id: '3ohs4w0OrUm5GIkB0I', title: 'REWIND HYSTERIA', artist: 'CIRCUIT BENDER X', year: '1992' },
+  { id: 'l41lFw057lAJQMwg0', title: 'CATHODE STATIC EXPLOSION', artist: 'ANALOG VOID', year: '1990' },
+  { id: '26tn33aiTi1jkl6H6', title: 'SMPTE RAVE BARS', artist: 'RGB DESYNC', year: '1996' },
+  { id: '3oKIPwoeGErMmaI43S', title: 'GHOST IN THE PHOSPHOR', artist: 'NULL FREQUENCY', year: '1993' },
+  { id: 'l41YkxUUvM3iM7qPm', title: 'TRACKING DRIFT 1994', artist: 'MAGNETIC DECAY', year: '1994' },
+
+  // Acid Vintage Cartoons
+  { id: 'l3q2K5jinAlChoCLS', title: 'BLINKING DISBELIEF', artist: 'OPTICAL CARTOON DEPT', year: '1994' },
+  { id: '26ufdipQqU2lhNA4g', title: 'BRAIN EXPANSION PARADE', artist: 'PSYCHEDELIC FLEISCHER', year: '1992' },
+  { id: '3o6Zt6KHxJTbXCnSvu', title: 'THE DANCING CAT SHADOW', artist: 'INK & DISTORTION', year: '1997' },
+  { id: 'l0MYt5jPR6QX5pnqM', title: 'MELTING EYE SMILE', artist: 'SURREAL CEL ANIMATION', year: '1995' },
+  { id: '3o7TKSjRrfIPjeiVyM', title: 'ELASTIC JUMP CYCLE', artist: 'FRAME BY FRAME ECSTASY', year: '1991' },
+
+  // Early Deep Web Art & ASCII
+  { id: 'ule4akeXnY9Mb2kfTM', title: 'ASCII RAIN MATRIX', artist: 'JODI.ORGANISM', year: '1996' },
+  { id: 'l0ExncehJzexFpRHq', title: 'GLITCHED CURSOR RITUAL', artist: 'DADA HYPERTEXT', year: '1995' },
+  { id: '26FPnsRww5znqykIo', title: 'DIAL-UP PSYCHOSIS', artist: 'TELNET PHANTOM', year: '1996' },
+  { id: 'xT5LMHxhOfscxPfIfm', title: 'THE FLOATING WINDOW', artist: 'BROWSER WANDERER', year: '1998' },
+  { id: 'l0HlQXkhXBukbpxLy', title: 'CYBER ENCRYPTION DANCE', artist: 'ANONYMOUS SYSOP', year: '1997' },
+
+  // Cosmic Trance & Fractals
+  { id: '26BROqpt7pZ7sD1sc', title: 'INFINITE TUNNEL 2000', artist: 'CELESTIAL RAYTRACE', year: '1994' },
+  { id: '3o85xG8Xm4B6fUaUaA', title: 'FRACTAL MANDALA ZOOM', artist: 'ASTRAL CRT', year: '1993' },
+  { id: 'xT0xeJpnrWC4XWblEk', title: 'NEON BLACK HOLE', artist: 'SUPERNOVA VISUALS', year: '1996' },
+  { id: '3o7bu3X7X6f5kPGuCA', title: 'COSMIC TIME TRAVEL', artist: 'HYPERSPACE RADIO', year: '1995' },
+  { id: 'l3V0ls4Nsz70K5x0A', title: 'INTERSTELLAR PULSE', artist: 'RADIO ASTRONOMY LAB', year: '1998' },
+
+  // 16-Bit Corrupted Arcade
+  { id: '3o6Zt8sE5AEUTNPQTC', title: 'TILTED CARTRIDGE GLITCH', artist: 'ROM CORRUPTOR 99', year: '1992' },
+  { id: 'xT9IgG50Fb7Mi0prBC', title: 'PIXEL VOID FIGHTER', artist: 'ARCADE SURREALIST', year: '1994' },
+  { id: 'l3q2w7T4R7lVn8b64', title: 'SPRITE EXPLOSION PARADE', artist: 'DITHER MATRIX', year: '1993' },
+  { id: '3o7TKT7g8zFzK78fZe', title: 'CORRUPT LEVEL 99', artist: 'CHIP GLITCH COLLECTIVE', year: '1995' },
+  { id: '3o7TKwmnDg59TFCbH2', title: 'GAME OVER HALLUCINATION', artist: 'COIN OP PHANTOM', year: '1991' },
+
+  // Live Synthesis Stream
+  { id: 'xT9IgH5uFmQn4R9Vq8', title: 'SPECTRUM ANOMALY', artist: 'ANONYMOUS TRANSMITTER', year: '1996' },
+  { id: '3o7TKx6j3rF8Z8z5kI', title: 'SYNCHRONIC DRIFT', artist: 'WAVE SHAPER 01', year: '1997' },
+  { id: 'xT9IgxO0f2qF8e4e76', title: 'ELECTRO-PLASTIC SURGE', artist: 'NEURAL BENDER', year: '1998' },
+  { id: '3o7TKsR9e2r8j4t7k8', title: 'CHROMATIC HYPNOSIS', artist: 'OPTICAL BROADCAST', year: '1995' },
+  { id: 'l3vR88x4d320m7k0e', title: 'KINETIC VORTEX 94', artist: 'THE SIGNAL MACHINE', year: '1994' },
+  { id: '3o7TKVm3s5k4j4t7k8', title: 'CYBER HORIZON 2000', artist: 'VIRTUAL HORIZON', year: '1999' },
+  { id: 'l3vR5j5j5j5j5j5j5j', title: 'ETERNAL REPEAT ODYSSEY', artist: 'INFINITE LOOP LAB', year: '1997' }
+];
+
+const SURREAL_TITLES = [
+  'NEON HYPNOSIS LOOP', 'ACID MICROWAVE', 'VIRTUAL VOID PULSE', 'LIQUID CATHODE DREAMS',
+  'CHROMA SIGNAL LOSS', 'TELEPATHIC INTERLACE', 'HYPER-DIMENSION 1994', 'ANALOG SOUP',
+  'SUBATOMIC DRIFT', 'FRACTAL STATIC ECHO', 'CYBER-OCCULT VISUAL', 'DADA MATRIX PULSE',
+  'INFINITE TAPE WARP', 'SILICON TRANSMISSION', 'AMIGA PARADOX', 'RETRO-WAVE PARADE'
+];
+
+const SURREAL_ARTISTS = [
+  'LIQUID LABS MILANO', 'MTV EXPERIMENTAL DEPT', 'NET.ART COLLECTIVE', 'CIRCUIT BENDER X',
+  'STUDIO PHOSPHOR 94', 'NEURAL VORTEX CO.', 'ANALOG DRAGON', 'SYNTHETIC PHANTOM',
+  'GLITCH ARCHIVE 1995', 'DIMENSIONAL WANDERER', 'RADICAL TELEVISION', 'EMAF205 LAB'
 ];
 
 /**
+ * Infinite Stream Manager
+ */
+class InfiniteGifStream {
+  constructor() {
+    this.history = [];
+    this.historyIndex = -1;
+    this.recentIds = [];
+    this.preloadedImages = new Map();
+  }
+
+  /**
+   * Preload an image URL into browser cache
+   */
+  preload(url) {
+    if (!url || this.preloadedImages.has(url)) return;
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.src = url;
+    this.preloadedImages.set(url, img);
+  }
+
+  /**
+   * Format item with full URL and vintage MTV metadata
+   */
+  formatItem(rawItem) {
+    const url = `https://media.giphy.com/media/${rawItem.id}/giphy.gif`;
+    const randomFreq = (100 + Math.random() * 800).toFixed(2);
+    return {
+      url: url,
+      id: rawItem.id,
+      title: rawItem.title || SURREAL_TITLES[Math.floor(Math.random() * SURREAL_TITLES.length)],
+      artist: rawItem.artist || SURREAL_ARTISTS[Math.floor(Math.random() * SURREAL_ARTISTS.length)],
+      year: rawItem.year || (1990 + Math.floor(Math.random() * 9)).toString(),
+      frequency: `${randomFreq} MHz`,
+      channel: 'CH 01 // MTV BIZARRE LIVE'
+    };
+  }
+
+  /**
+   * Grab next random absurd GIF online
+   */
+  getNextRandom() {
+    // If user was browsing backwards in history, advance forwards in history
+    if (this.historyIndex < this.history.length - 1) {
+      this.historyIndex++;
+      return this.history[this.historyIndex];
+    }
+
+    // Filter out recently seen items to avoid repetition
+    let pool = ABSURD_GIF_COLLECTION.filter(item => !this.recentIds.includes(item.id));
+    if (pool.length === 0) {
+      this.recentIds = [];
+      pool = ABSURD_GIF_COLLECTION;
+    }
+
+    // Pick random item
+    const picked = pool[Math.floor(Math.random() * pool.length)];
+    this.recentIds.push(picked.id);
+    if (this.recentIds.length > 20) this.recentIds.shift();
+
+    const formatted = this.formatItem(picked);
+
+    // Save to history
+    this.history.push(formatted);
+    this.historyIndex = this.history.length - 1;
+
+    // Preload next candidate in advance
+    const nextCandidate = pool[Math.floor(Math.random() * pool.length)];
+    if (nextCandidate) {
+      this.preload(`https://media.giphy.com/media/${nextCandidate.id}/giphy.gif`);
+    }
+
+    return formatted;
+  }
+
+  /**
+   * Step back in history
+   */
+  getPrevious() {
+    if (this.historyIndex > 0) {
+      this.historyIndex--;
+      return this.history[this.historyIndex];
+    }
+    // If at the beginning of history, generate another random
+    return this.getNextRandom();
+  }
+}
+
+/**
  * Procedural Fallback Engine
- * Renders mesmerizing canvas net-art loops if an external GIF is unreachable or offline
+ * Generates hypnotic net-art animations on canvas if offline
  */
 class ProceduralNetArt {
-  static renderFallback(canvas, type = 'wireframe', time = 0) {
+  static renderFallback(canvas, type = 'tunnel', time = 0) {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     const w = canvas.width;
@@ -462,7 +190,6 @@ class ProceduralNetArt {
 
     switch (type) {
       case 'tunnel':
-        // Hypnotic wireframe tunnel
         ctx.strokeStyle = '#00ffcc';
         ctx.lineWidth = 1.5;
         for (let i = 1; i <= 10; i++) {
@@ -480,7 +207,6 @@ class ProceduralNetArt {
         break;
 
       case 'ascii':
-        // Digital cyber text rain
         ctx.fillStyle = '#39ff14';
         ctx.font = '14px monospace';
         const chars = '01#%*MTVNETART_CRT_GLITCH_EMAF205_MILANO';
@@ -492,7 +218,6 @@ class ProceduralNetArt {
         break;
 
       case 'mtv-logo':
-        // Bouncing wireframe MTV Net-Art Box
         ctx.save();
         ctx.translate(cx, cy);
         ctx.rotate(time * 0.8);
@@ -510,7 +235,6 @@ class ProceduralNetArt {
         break;
 
       default:
-        // Rainbow psychedelic color bands
         const grad = ctx.createLinearGradient(0, 0, w, h);
         const shift = (time * 0.2) % 1;
         grad.addColorStop((shift + 0.0) % 1, '#ff0055');
@@ -519,7 +243,6 @@ class ProceduralNetArt {
         grad.addColorStop((shift + 1.0) % 1, '#ff0055');
         ctx.fillStyle = grad;
         ctx.fillRect(0, 0, w, h);
-
         ctx.fillStyle = '#ffffff';
         ctx.font = '16px monospace';
         ctx.textAlign = 'center';
@@ -529,5 +252,5 @@ class ProceduralNetArt {
   }
 }
 
-window.TV_CHANNELS = TV_CHANNELS;
+window.tvStream = new InfiniteGifStream();
 window.ProceduralNetArt = ProceduralNetArt;

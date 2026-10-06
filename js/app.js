@@ -1,10 +1,10 @@
 /**
  * GIF-TV: Net Art CRT Television
- * Application Controller & State Machine
+ * Application Controller - Single Infinite Stream & Simplified Controls
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // DOM References
+  // DOM Elements
   const crtScreen = document.getElementById('crt-screen');
   const staticCanvas = document.getElementById('static-canvas');
   const fallbackCanvas = document.getElementById('fallback-canvas');
@@ -30,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnPower = document.getElementById('btn-power');
   const btnPrevCh = document.getElementById('btn-prev-ch');
   const btnNextCh = document.getElementById('btn-next-ch');
-  const btnNextGif = document.getElementById('btn-next-gif');
   const btnZap = document.getElementById('btn-zap');
   const zapLabel = document.getElementById('zap-label');
   const btnDegauss = document.getElementById('btn-degauss');
@@ -38,32 +37,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const audioIcon = document.getElementById('audio-icon');
   const audioLabel = document.getElementById('audio-label');
   const btnFullscreen = document.getElementById('btn-fullscreen');
-  const channelDropdown = document.getElementById('channel-dropdown');
   const screenArrowPrev = document.getElementById('screen-arrow-prev');
   const screenArrowNext = document.getElementById('screen-arrow-next');
 
   // State
   let isPowered = true;
-  let currentChannelIdx = 0;
-  let currentGifIdx = 0;
   let isZapping = false;
   let zapTimer = null;
   let osdTimer = null;
   let lowerThirdTimer = null;
   let fallbackAnimId = null;
+  let currentHue = 180;
 
-  // Initialize CRT Effects Engine
+  // Initialize CRT Visual Effects Engine
   const crtEffects = new CRTEffects(staticCanvas, crtScreen);
 
-  // Populate Channel Dropdown
-  TV_CHANNELS.forEach((ch, idx) => {
-    const opt = document.createElement('option');
-    opt.value = idx;
-    opt.textContent = `CH ${ch.number} - ${ch.name}`;
-    channelDropdown.appendChild(opt);
-  });
-
-  // Clock Update
+  // Real-time clock in header
   function updateClock() {
     const d = new Date();
     headerTime.textContent = d.toTimeString().split(' ')[0];
@@ -72,9 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
   updateClock();
 
   /**
-   * Show On-Screen Display (OSD) Notification
+   * Display On-Screen Display (OSD) Message
    */
-  function showOSD(mainText, subText = 'STEREO // AV-1') {
+  function showOSD(mainText, subText = 'MTV BIZARRE // LIVE FEED') {
     if (!isPowered) return;
     osdChannel.textContent = mainText;
     osdSub.textContent = subText;
@@ -87,18 +76,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
-   * Show MTV Style Lower-Third Card
+   * Display MTV Style Lower-Third Card
    */
-  function showLowerThird(item, ch) {
-    if (!isPowered || ch.isStaticChannel) {
+  function showLowerThird(item) {
+    if (!isPowered) {
       lowerThird.classList.remove('active');
       return;
     }
 
-    ltTitle.textContent = `TITLE: ${item.title || 'UNTITLED TRANSMISSION'}`;
-    ltArtist.textContent = item.artist || 'ANONYMOUS NET ART';
-    ltYear.textContent = item.year || '199X';
-    ltChannel.textContent = `CH ${ch.number} // ${ch.frequency} // ${ch.category}`;
+    ltTitle.textContent = `TITLE: ${item.title}`;
+    ltArtist.textContent = item.artist;
+    ltYear.textContent = item.year;
+    ltChannel.textContent = `${item.channel} // ${item.frequency}`;
 
     lowerThird.classList.add('active');
 
@@ -109,14 +98,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
-   * Render Procedural Fallback Animation on Canvas
+   * Procedural Fallback Net-Art Animation
    */
   function startFallbackAnimation(type = 'tunnel') {
     if (fallbackAnimId) cancelAnimationFrame(fallbackAnimId);
     fallbackCanvas.classList.add('active');
     tvGif.classList.add('hidden');
 
-    let startTime = performance.now();
+    const startTime = performance.now();
     const loop = (now) => {
       const elapsed = (now - startTime) * 0.001;
       ProceduralNetArt.renderFallback(fallbackCanvas, type, elapsed);
@@ -134,56 +123,29 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
-   * Tune Channel and Load Content
+   * Render a GIF item with analog zapping transitions
    */
-  function tuneChannel(chIdx, gifIdx = 0, isInitial = false) {
-    if (!isPowered) return;
+  function renderItem(item, isInitial = false) {
+    if (!isPowered || !item) return;
 
-    // Constrain indices
-    currentChannelIdx = (chIdx + TV_CHANNELS.length) % TV_CHANNELS.length;
-    channelDropdown.value = currentChannelIdx;
-
-    const ch = TV_CHANNELS[currentChannelIdx];
-    currentGifIdx = (gifIdx + ch.items.length) % ch.items.length;
-    const item = ch.items[currentGifIdx];
-
-    // Audio & Visual Static Burst on Zapping
+    // Analog Static Audio & Video Burst on change
     if (!isInitial) {
-      window.tvAudio.playStaticBurst(0.24, 0.4);
-      crtEffects.burstStatic(240, 0.9);
+      window.tvAudio.playStaticBurst(0.22, 0.4);
+      crtEffects.burstStatic(230, 0.9);
     }
 
     // Update Header Frequency
-    headerFreq.textContent = ch.frequency;
+    headerFreq.textContent = item.frequency;
 
-    // Update OSD & Lower Third
-    showOSD(`CH ${ch.number} - ${ch.name}`, `${ch.frequency} // STEREO`);
-    showLowerThird(item, ch);
+    // Shift ambient glow color
+    currentHue = (currentHue + 47) % 360;
+    ambientGlow.style.background = `radial-gradient(circle, hsla(${currentHue}, 90%, 55%, 0.12) 0%, hsla(${(currentHue + 40) % 360}, 90%, 45%, 0.04) 50%, transparent 75%)`;
 
-    // Update Ambient Glow Color Palette
-    const hue = (currentChannelIdx * 37) % 360;
-    ambientGlow.style.background = `radial-gradient(circle, hsla(${hue}, 90%, 55%, 0.12) 0%, hsla(${(hue + 45) % 360}, 90%, 45%, 0.04) 50%, transparent 75%)`;
+    // OSD & Lower-Third updates
+    showOSD('CH 01 - MTV BIZARRE', `${item.frequency} // STEREO`);
+    showLowerThird(item);
 
-    // Static Channel Handling
-    if (ch.isStaticChannel) {
-      stopFallbackAnimation();
-      tvGif.classList.add('hidden');
-      crtEffects.setContinuousStatic(true, 0.9);
-      return;
-    } else {
-      crtEffects.setContinuousStatic(false);
-    }
-
-    // Load GIF Media
-    stopFallbackAnimation();
-    tvGif.classList.remove('hidden');
-
-    if (!item.url) {
-      startFallbackAnimation('mtv-logo');
-      return;
-    }
-
-    // Preload image to avoid flicker
+    // Load Image
     const imgLoader = new Image();
     imgLoader.crossOrigin = 'anonymous';
     imgLoader.src = item.url;
@@ -195,35 +157,33 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     imgLoader.onerror = () => {
-      // Graceful fallback to generative net-art on canvas
-      console.warn(`Could not load media for ${item.title}, using procedural fallback.`);
-      const fallbackTypes = ['tunnel', 'ascii', 'mtv-logo', 'rainbow'];
-      const chosenType = fallbackTypes[currentChannelIdx % fallbackTypes.length];
-      startFallbackAnimation(chosenType);
+      console.warn('Fallback needed for item:', item.title);
+      const fallbacks = ['tunnel', 'ascii', 'mtv-logo'];
+      const picked = fallbacks[Math.floor(Math.random() * fallbacks.length)];
+      startFallbackAnimation(picked);
     };
   }
 
   /**
-   * Channel Navigation
+   * Zap to next random GIF
    */
-  function nextChannel() {
+  function zapNext() {
     window.tvAudio.playClick();
-    tuneChannel(currentChannelIdx + 1, 0);
-  }
-
-  function prevChannel() {
-    window.tvAudio.playClick();
-    tuneChannel(currentChannelIdx - 1, 0);
-  }
-
-  function nextGif() {
-    window.tvAudio.playClick();
-    const ch = TV_CHANNELS[currentChannelIdx];
-    tuneChannel(currentChannelIdx, currentGifIdx + 1);
+    const item = window.tvStream.getNextRandom();
+    renderItem(item);
   }
 
   /**
-   * Zapping Auto Mode (Automated Channel Surfing)
+   * Zap to previous GIF in history
+   */
+  function zapPrev() {
+    window.tvAudio.playClick();
+    const item = window.tvStream.getPrevious();
+    renderItem(item);
+  }
+
+  /**
+   * Auto Zapping Toggle (Continuous Surfing)
    */
   function toggleZapping() {
     window.tvAudio.playClick();
@@ -231,16 +191,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (isZapping) {
       btnZap.classList.add('active');
-      zapLabel.textContent = 'ZAP ON';
-      showOSD('AUTO ZAP: ON', 'INTERVAL: 7 SECONDS');
+      zapLabel.textContent = 'AUTO ON';
+      showOSD('AUTO ZAP: ACTIVE', 'TIMER: EVERY 7 SECONDS');
       zapTimer = setInterval(() => {
-        // Jump to next or random channel
-        const nextIdx = (currentChannelIdx + 1) % (TV_CHANNELS.length - 1); // skip static void
-        tuneChannel(nextIdx, Math.floor(Math.random() * TV_CHANNELS[nextIdx].items.length));
+        zapNext();
       }, 7000);
     } else {
       btnZap.classList.remove('active');
-      zapLabel.textContent = 'ZAP OFF';
+      zapLabel.textContent = 'AUTO OFF';
       showOSD('AUTO ZAP: OFF', 'MANUAL TUNING');
       if (zapTimer) clearInterval(zapTimer);
     }
@@ -264,11 +222,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isMuted) {
       audioIcon.textContent = '🔇';
       audioLabel.textContent = 'MUTE';
-      showOSD('AUDIO: MUTED', 'SYNTHESIS SILENCED');
+      showOSD('AUDIO: MUTED', 'SYNTHESIS OFF');
     } else {
       audioIcon.textContent = '🔊';
       audioLabel.textContent = 'AUDIO';
-      showOSD('AUDIO: ACTIVE', 'RF NOISE & TONE ON');
+      showOSD('AUDIO: ACTIVE', 'RF NOISE & SYNTH ON');
     }
   }
 
@@ -279,15 +237,14 @@ document.addEventListener('DOMContentLoaded', () => {
     isPowered = !isPowered;
 
     if (isPowered) {
-      // Turn On
       powerLed.classList.add('on');
       crtScreen.classList.remove('screen-off');
       window.tvAudio.playPowerSwitch(true);
       crtEffects.powerOn(() => {
-        tuneChannel(currentChannelIdx, currentGifIdx, true);
+        const item = window.tvStream.getNextRandom();
+        renderItem(item, true);
       });
     } else {
-      // Turn Off
       if (isZapping) toggleZapping();
       window.tvAudio.playPowerSwitch(false);
       powerLed.classList.remove('on');
@@ -320,45 +277,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Button Event Listeners
+  // Attach Event Listeners
   btnPower.addEventListener('click', togglePower);
-  btnNextCh.addEventListener('click', nextChannel);
-  btnPrevCh.addEventListener('click', prevChannel);
-
-  // Direct On-Screen Arrow Buttons (Frecce Cambio Canale a Schermo)
-  if (screenArrowPrev) {
-    screenArrowPrev.addEventListener('click', (e) => {
-      e.stopPropagation();
-      prevChannel();
-    });
-  }
-  if (screenArrowNext) {
-    screenArrowNext.addEventListener('click', (e) => {
-      e.stopPropagation();
-      nextChannel();
-    });
-  }
-
-  btnNextGif.addEventListener('click', nextGif);
+  btnNextCh.addEventListener('click', zapNext);
+  btnPrevCh.addEventListener('click', zapPrev);
   btnZap.addEventListener('click', toggleZapping);
   btnDegauss.addEventListener('click', triggerDegauss);
   btnAudio.addEventListener('click', toggleAudio);
   btnFullscreen.addEventListener('click', toggleFullscreen);
 
-  channelDropdown.addEventListener('change', (e) => {
-    window.tvAudio.playClick();
-    tuneChannel(parseInt(e.target.value, 10), 0);
-  });
+  // Direct On-Screen Arrow Clickers
+  if (screenArrowPrev) {
+    screenArrowPrev.addEventListener('click', (e) => {
+      e.stopPropagation();
+      zapPrev();
+    });
+  }
+  if (screenArrowNext) {
+    screenArrowNext.addEventListener('click', (e) => {
+      e.stopPropagation();
+      zapNext();
+    });
+  }
 
-  // Click on TV Screen to interact & unmute on first touch
+  // Click anywhere on TV screen to zap next GIF and unmute context
   crtScreen.addEventListener('click', () => {
     window.tvAudio.ensureContext();
-    nextGif();
+    zapNext();
   });
 
-  // Keyboard Shortcuts (Frecce Tastiera, Spazio, G, D, Z, M, P, F)
+  // Keyboard Shortcuts (Frecce, Spazio, D, Z, M, P, F)
   window.addEventListener('keydown', (e) => {
-    // Avoid interfering if focus is inside an input
     if (['INPUT', 'SELECT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
 
     switch (e.key.toLowerCase()) {
@@ -366,15 +315,12 @@ document.addEventListener('DOMContentLoaded', () => {
       case 'arrowup':
       case ' ':
         e.preventDefault();
-        nextChannel();
+        zapNext();
         break;
       case 'arrowleft':
       case 'arrowdown':
         e.preventDefault();
-        prevChannel();
-        break;
-      case 'g':
-        nextGif();
+        zapPrev();
         break;
       case 'd':
         triggerDegauss();
@@ -394,7 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Touch Swipe for Mobile & Tablet
+  // Touch Swipe on mobile/tablets
   let touchStartX = 0;
   let touchStartY = 0;
 
@@ -412,16 +358,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (Math.abs(dx) > 40 || Math.abs(dy) > 40) {
         if (Math.abs(dx) > Math.abs(dy)) {
-          if (dx < 0) nextChannel();
-          else prevChannel();
+          if (dx < 0) zapNext();
+          else zapPrev();
         } else {
-          if (dy < 0) nextGif();
+          if (dy < 0) zapNext();
           else triggerDegauss();
         }
       }
     }
   }, { passive: true });
 
-  // Initial Tune
-  tuneChannel(0, 0, true);
+  // Start with first random GIF
+  const initialItem = window.tvStream.getNextRandom();
+  renderItem(initialItem, true);
 });

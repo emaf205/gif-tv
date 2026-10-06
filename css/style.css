@@ -720,24 +720,23 @@ body {
   font-size: 14px;
 }
 
-/* Channel Quick Selector Dropdown */
-.channel-selector {
-  background: #23232c;
-  color: #c8c8d8;
-  border: 1px solid #333340;
-  border-radius: 10px;
-  padding: 9px 12px;
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  outline: none;
-  transition: border-color 0.2s ease;
+.remote-btn.btn-nav-arrow {
+  color: #ffffff;
+  font-weight: 700;
 }
 
-.channel-selector:hover, .channel-selector:focus {
+.remote-btn.btn-highlight-next {
+  background: linear-gradient(135deg, #1f2a3a 0%, #243548 100%);
   border-color: var(--mtv-cyan);
-  color: #fff;
+  color: var(--mtv-cyan);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+.remote-btn.btn-highlight-next:hover {
+  background: linear-gradient(135deg, #00f0ff 0%, #0099ff 100%);
+  color: #000;
+  border-color: #ffffff;
+  box-shadow: 0 0 18px rgba(0, 240, 255, 0.7);
 }
 
 /* Keyboard Guide Footer & Milan Credit */

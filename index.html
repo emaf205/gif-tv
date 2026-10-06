@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="GIF-TV: Net Art CRT Television. Canali infiniti di GIF assurde, surrealismo e loop sperimentali in stile MTV anni '90.">
+  <meta name="description" content="GIF-TV: Net Art CRT Television. Canale unico infinito di GIF assurde recuperate online in stile MTV anni '90.">
   <meta name="theme-color" content="#060608">
   <title>GIF-TV // Net Art CRT Television</title>
 
@@ -35,7 +35,7 @@
     <div class="header-status">
       <div class="live-indicator">
         <span class="dot"></span>
-        <span id="header-freq">181.25 MHz</span>
+        <span id="header-freq">433.92 MHz</span>
       </div>
       <span id="header-time">00:00:00</span>
     </div>
@@ -64,11 +64,11 @@
           <div class="crt-curvature"></div>
           <div class="crt-glare"></div>
 
-          <!-- On-Screen Direct Navigation Arrows (Frecce Cambio Canale) -->
-          <button class="screen-arrow-btn arrow-prev" id="screen-arrow-prev" title="Canale Precedente (◀ / Freccia Sinistra)" aria-label="Canale Precedente">
+          <!-- On-Screen Direct Navigation Arrows (Frecce Cambio GIF) -->
+          <button class="screen-arrow-btn arrow-prev" id="screen-arrow-prev" title="GIF Precedente (◀ / Freccia Sinistra)" aria-label="GIF Precedente">
             <span class="arrow-char">◀</span>
           </button>
-          <button class="screen-arrow-btn arrow-next" id="screen-arrow-next" title="Canale Successivo (▶ / Freccia Destra)" aria-label="Canale Successivo">
+          <button class="screen-arrow-btn arrow-next" id="screen-arrow-next" title="Prossima GIF Random (▶ / Freccia Destra)" aria-label="Prossima GIF Random">
             <span class="arrow-char">▶</span>
           </button>
 
@@ -83,17 +83,17 @@
 
           <!-- Retro Green Phosphor On-Screen Display (OSD) -->
           <div class="crt-osd" id="crt-osd">
-            <div id="osd-channel">CH 01 - LIQUID MTV</div>
-            <div id="osd-sub" class="osd-tag">STEREO // AV-1</div>
+            <div id="osd-channel">CH 01 - MTV BIZARRE</div>
+            <div id="osd-sub" class="osd-tag">LIVE STREAM // 433.92 MHz</div>
           </div>
 
           <!-- MTV Music Video Style Lower-Third Info Card -->
           <aside class="mtv-lower-third" id="lower-third">
-            <div class="lt-title" id="lt-title">TITLE: VOID TRANSMISSION</div>
+            <div class="lt-title" id="lt-title">TITLE: RANDOM TRANSMISSION</div>
             <div class="lt-meta">
               ARTIST: <span id="lt-artist">UNKNOWN NET ARTIST</span> // <span id="lt-year">1994</span>
             </div>
-            <div class="lt-channel" id="lt-channel">CH 01 // 181.25 MHz</div>
+            <div class="lt-channel" id="lt-channel">CH 01 // MTV BIZARRE LIVE</div>
           </aside>
 
         </div>
@@ -125,35 +125,26 @@
     </div>
   </main>
 
-  <!-- Interactive Floating Remote Dock -->
+  <!-- Interactive Floating Remote Dock (Semplificato) -->
   <nav class="remote-dock" aria-label="Telecomando TV">
     <button class="remote-btn btn-pwr" id="btn-power" title="Accendi / Spegni Televisore (P)">
       <span class="btn-icon">⏻</span>
       <span>POWER</span>
     </button>
 
-    <button class="remote-btn btn-nav-arrow" id="btn-prev-ch" title="Canale Precedente (◀ / Freccia Sinistra / Giù)">
+    <button class="remote-btn btn-nav-arrow" id="btn-prev-ch" title="GIF Precedente (◀ / Freccia Sinistra / Giù)">
       <span class="btn-icon">◀</span>
-      <span>CH -</span>
+      <span>PREV</span>
     </button>
 
-    <select class="channel-selector" id="channel-dropdown" title="Seleziona Canale Tematico">
-      <!-- Generated via JS -->
-    </select>
-
-    <button class="remote-btn btn-nav-arrow" id="btn-next-ch" title="Canale Successivo (▶ / Freccia Destra / Su)">
+    <button class="remote-btn btn-nav-arrow btn-highlight-next" id="btn-next-ch" title="Prossima GIF Random (▶ / Freccia Destra / Su / Spazio)">
       <span class="btn-icon">▶</span>
-      <span>CH +</span>
+      <span>RANDOM ZAP</span>
     </button>
 
-    <button class="remote-btn" id="btn-next-gif" title="Altra GIF su questo canale (G o Click Schermo)">
-      <span class="btn-icon">⚡</span>
-      <span>LOOP</span>
-    </button>
-
-    <button class="remote-btn btn-zap" id="btn-zap" title="Zapping Automatico ogni 7s (Z)">
+    <button class="remote-btn btn-zap" id="btn-zap" title="Auto Zapping ogni 7s (Z)">
       <span class="btn-icon">🔀</span>
-      <span id="zap-label">ZAP OFF</span>
+      <span id="zap-label">AUTO OFF</span>
     </button>
 
     <button class="remote-btn btn-degauss" id="btn-degauss" title="Smagnetizza Schermo Degauss (D)">
@@ -175,10 +166,9 @@
   <!-- Keyboard Shortcuts & Accessibility Guide -->
   <footer class="footer-guide">
     <div class="footer-shortcuts">
-      <span class="kbd-shortcut"><kbd>◀</kbd> <kbd>▶</kbd> <kbd>▲</kbd> <kbd>▼</kbd> o <kbd>Spazio</kbd> Canali</span>
-      <span class="kbd-shortcut"><kbd>G</kbd> Altro Loop</span>
+      <span class="kbd-shortcut"><kbd>◀</kbd> <kbd>▶</kbd> <kbd>▲</kbd> <kbd>▼</kbd> o <kbd>Spazio</kbd> Prossima GIF</span>
       <span class="kbd-shortcut"><kbd>D</kbd> Degauss</span>
-      <span class="kbd-shortcut"><kbd>Z</kbd> Zapping Auto</span>
+      <span class="kbd-shortcut"><kbd>Z</kbd> Auto Zap</span>
       <span class="kbd-shortcut"><kbd>M</kbd> Audio</span>
       <span class="kbd-shortcut"><kbd>P</kbd> Power</span>
       <span class="kbd-shortcut"><kbd>F</kbd> Fullscreen</span>
