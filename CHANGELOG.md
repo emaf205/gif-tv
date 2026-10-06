@@ -3,6 +3,12 @@
 Tutte le modifiche rilevanti a questo progetto saranno documentate in questo file.
 Il formato è basato su [Keep a Changelog](https://keepachangelog.com/it/1.0.0/) e aderisce a [Semantic Versioning](https://semver.org/).
 
+## [1.2.1] - 2026-10-06
+
+### Aggiunto & Aggiornato
+- Aggiunto lo screenshot di presentazione (`preview.jpg`) nella root del progetto.
+- Riscritto il `README.md` in formato breve, conciso e d'impatto per l'opera di Net Art con anteprima visiva integrata.
+
 ## [1.2.0] - 2026-10-06
 
 ### Modificato & Semplificato
