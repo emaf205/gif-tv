@@ -75,6 +75,38 @@ body {
   color: #66667a;
 }
 
+.header-center-credit {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: #88889e;
+}
+
+.heart-pulse {
+  color: #ff2255;
+  display: inline-block;
+  animation: pulse-heart 1.2s infinite ease-in-out;
+  margin: 0 2px;
+}
+
+@keyframes pulse-heart {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px #ff2255); }
+  50% { transform: scale(1.35); filter: drop-shadow(0 0 6px #ff2255); }
+}
+
+.author-link {
+  color: var(--mtv-cyan);
+  text-decoration: none;
+  font-weight: 700;
+  border-bottom: 1px dotted var(--mtv-cyan);
+  transition: all 0.2s ease;
+}
+
+.author-link:hover {
+  color: #ffffff;
+  text-shadow: 0 0 8px var(--mtv-cyan);
+  border-bottom-style: solid;
+}
+
 .header-logo {
   display: flex;
   align-items: center;
@@ -319,6 +351,63 @@ body {
   );
   border-radius: 50%;
   transform: rotate(-15deg);
+}
+
+/* ==========================================================================
+   ON-SCREEN DIRECT NAVIGATION ARROWS
+   ========================================================================== */
+
+.screen-arrow-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 9;
+  width: 44px;
+  height: 72px;
+  background: rgba(14, 14, 20, 0.45);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e0e0f0;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+  opacity: 0.65;
+  user-select: none;
+  outline: none;
+}
+
+.screen-arrow-btn:hover {
+  opacity: 1;
+  background: rgba(20, 20, 30, 0.9);
+  border-color: var(--mtv-cyan);
+  color: var(--mtv-cyan);
+  box-shadow: 0 0 18px rgba(0, 240, 255, 0.5), inset 0 0 10px rgba(0, 240, 255, 0.25);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.screen-arrow-btn:active {
+  transform: translateY(-50%) scale(0.92);
+  background: #000;
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.9);
+}
+
+.screen-arrow-btn.arrow-prev {
+  left: 8px;
+  border-radius: 6px 16px 16px 6px;
+}
+
+.screen-arrow-btn.arrow-next {
+  right: 8px;
+  border-radius: 16px 6px 6px 16px;
+}
+
+.screen-arrow-btn .arrow-char {
+  display: inline-block;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+  pointer-events: none;
 }
 
 /* ==========================================================================
@@ -651,7 +740,7 @@ body {
   color: #fff;
 }
 
-/* Keyboard Guide Footer */
+/* Keyboard Guide Footer & Milan Credit */
 .footer-guide {
   font-size: 11px;
   color: #555566;
@@ -659,10 +748,17 @@ body {
   text-align: center;
   margin-bottom: 24px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
   z-index: 5;
+}
+
+.footer-shortcuts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
 }
 
 .kbd-shortcut {
@@ -675,11 +771,19 @@ kbd {
   background: #181820;
   border: 1px solid #333340;
   border-radius: 4px;
-  padding: 2px 5px;
+  padding: 2px 6px;
   font-family: monospace;
   font-size: 10px;
   color: #88889a;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.footer-credit {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: #88889e;
+  text-transform: uppercase;
+  margin-top: 4px;
 }
 
 /* ==========================================================================

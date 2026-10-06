@@ -39,6 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const audioLabel = document.getElementById('audio-label');
   const btnFullscreen = document.getElementById('btn-fullscreen');
   const channelDropdown = document.getElementById('channel-dropdown');
+  const screenArrowPrev = document.getElementById('screen-arrow-prev');
+  const screenArrowNext = document.getElementById('screen-arrow-next');
 
   // State
   let isPowered = true;
@@ -322,6 +324,21 @@ document.addEventListener('DOMContentLoaded', () => {
   btnPower.addEventListener('click', togglePower);
   btnNextCh.addEventListener('click', nextChannel);
   btnPrevCh.addEventListener('click', prevChannel);
+
+  // Direct On-Screen Arrow Buttons (Frecce Cambio Canale a Schermo)
+  if (screenArrowPrev) {
+    screenArrowPrev.addEventListener('click', (e) => {
+      e.stopPropagation();
+      prevChannel();
+    });
+  }
+  if (screenArrowNext) {
+    screenArrowNext.addEventListener('click', (e) => {
+      e.stopPropagation();
+      nextChannel();
+    });
+  }
+
   btnNextGif.addEventListener('click', nextGif);
   btnZap.addEventListener('click', toggleZapping);
   btnDegauss.addEventListener('click', triggerDegauss);
@@ -339,17 +356,19 @@ document.addEventListener('DOMContentLoaded', () => {
     nextGif();
   });
 
-  // Keyboard Shortcuts
+  // Keyboard Shortcuts (Frecce Tastiera, Spazio, G, D, Z, M, P, F)
   window.addEventListener('keydown', (e) => {
     // Avoid interfering if focus is inside an input
     if (['INPUT', 'SELECT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
 
     switch (e.key.toLowerCase()) {
+      case 'arrowright':
       case 'arrowup':
       case ' ':
         e.preventDefault();
         nextChannel();
         break;
+      case 'arrowleft':
       case 'arrowdown':
         e.preventDefault();
         prevChannel();

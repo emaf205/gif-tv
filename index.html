@@ -27,6 +27,11 @@
       <span class="badge">NET ART</span>
       <span>CATHODE TUBE 1994</span>
     </div>
+    
+    <div class="header-center-credit">
+      <span>MADE WITH <span class="heart-pulse">♥</span> IN MILAN BY <a href="https://emaf205.com" target="_blank" rel="noopener" class="author-link">EMAF205</a></span>
+    </div>
+
     <div class="header-status">
       <div class="live-indicator">
         <span class="dot"></span>
@@ -58,6 +63,14 @@
           <div class="crt-scanlines"></div>
           <div class="crt-curvature"></div>
           <div class="crt-glare"></div>
+
+          <!-- On-Screen Direct Navigation Arrows (Frecce Cambio Canale) -->
+          <button class="screen-arrow-btn arrow-prev" id="screen-arrow-prev" title="Canale Precedente (◀ / Freccia Sinistra)" aria-label="Canale Precedente">
+            <span class="arrow-char">◀</span>
+          </button>
+          <button class="screen-arrow-btn arrow-next" id="screen-arrow-next" title="Canale Successivo (▶ / Freccia Destra)" aria-label="Canale Successivo">
+            <span class="arrow-char">▶</span>
+          </button>
 
           <!-- MTV Corner Bug (Net Art Edition) -->
           <div class="mtv-corner-bug">
@@ -98,7 +111,7 @@
 
         <div class="brand-badge">
           <span class="brand-text">TRINITRON-BDC</span>
-          <span class="brand-sub">NET-ART TUBE 60Hz</span>
+          <span class="brand-sub">MILAN NET-ART 60Hz</span>
         </div>
 
         <div class="chassis-controls">
@@ -119,8 +132,8 @@
       <span>POWER</span>
     </button>
 
-    <button class="remote-btn" id="btn-prev-ch" title="Canale Precedente (Freccia Giù)">
-      <span class="btn-icon">▼</span>
+    <button class="remote-btn btn-nav-arrow" id="btn-prev-ch" title="Canale Precedente (◀ / Freccia Sinistra / Giù)">
+      <span class="btn-icon">◀</span>
       <span>CH -</span>
     </button>
 
@@ -128,12 +141,12 @@
       <!-- Generated via JS -->
     </select>
 
-    <button class="remote-btn" id="btn-next-ch" title="Canale Successivo (Freccia Su / Spazio)">
-      <span class="btn-icon">▲</span>
+    <button class="remote-btn btn-nav-arrow" id="btn-next-ch" title="Canale Successivo (▶ / Freccia Destra / Su)">
+      <span class="btn-icon">▶</span>
       <span>CH +</span>
     </button>
 
-    <button class="remote-btn" id="btn-next-gif" title="Altra GIF su questo canale (G)">
+    <button class="remote-btn" id="btn-next-gif" title="Altra GIF su questo canale (G o Click Schermo)">
       <span class="btn-icon">⚡</span>
       <span>LOOP</span>
     </button>
@@ -161,13 +174,19 @@
 
   <!-- Keyboard Shortcuts & Accessibility Guide -->
   <footer class="footer-guide">
-    <span class="kbd-shortcut"><kbd>↑</kbd> <kbd>↓</kbd> o <kbd>Spazio</kbd> Canali</span>
-    <span class="kbd-shortcut"><kbd>G</kbd> Altra GIF</span>
-    <span class="kbd-shortcut"><kbd>D</kbd> Degauss</span>
-    <span class="kbd-shortcut"><kbd>Z</kbd> Zapping Auto</span>
-    <span class="kbd-shortcut"><kbd>M</kbd> Audio</span>
-    <span class="kbd-shortcut"><kbd>P</kbd> Power</span>
-    <span class="kbd-shortcut"><kbd>F</kbd> Schermo Intero</span>
+    <div class="footer-shortcuts">
+      <span class="kbd-shortcut"><kbd>◀</kbd> <kbd>▶</kbd> <kbd>▲</kbd> <kbd>▼</kbd> o <kbd>Spazio</kbd> Canali</span>
+      <span class="kbd-shortcut"><kbd>G</kbd> Altro Loop</span>
+      <span class="kbd-shortcut"><kbd>D</kbd> Degauss</span>
+      <span class="kbd-shortcut"><kbd>Z</kbd> Zapping Auto</span>
+      <span class="kbd-shortcut"><kbd>M</kbd> Audio</span>
+      <span class="kbd-shortcut"><kbd>P</kbd> Power</span>
+      <span class="kbd-shortcut"><kbd>F</kbd> Fullscreen</span>
+    </div>
+    
+    <div class="footer-credit">
+      Made with <span class="heart-pulse">♥</span> in Milan by <a href="https://emaf205.com" target="_blank" rel="noopener" class="author-link">EmaF205</a>
+    </div>
   </footer>
 
   <!-- Application Logic Modules -->
