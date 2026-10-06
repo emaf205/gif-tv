@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="GIF-TV: Net Art CRT Television. Canali infiniti di GIF assurde, surrealismo e loop sperimentali in stile MTV anni '90.">
+  <meta name="theme-color" content="#060608">
+  <title>GIF-TV // Net Art CRT Television</title>
+
+  <!-- Google Fonts: VT323 (Retro OSD) & Space Grotesk (Minimal UI) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=VT323&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="manifest" href="manifest.webmanifest">
+</head>
+<body>
+
+  <!-- Ambient Glow from Cathode Screen -->
+  <div class="ambient-glow" id="ambient-glow"></div>
+
+  <!-- Minimal Net Art Top Header -->
+  <header class="header-bar">
+    <div class="header-logo">
+      <span>GIF-TV</span>
+      <span class="badge">NET ART</span>
+      <span>CATHODE TUBE 1994</span>
+    </div>
+    <div class="header-status">
+      <div class="live-indicator">
+        <span class="dot"></span>
+        <span id="header-freq">181.25 MHz</span>
+      </div>
+      <span id="header-time">00:00:00</span>
+    </div>
+  </header>
+
+  <!-- Main Television Apparatus -->
+  <main class="tv-wrapper">
+    <div class="tv-chassis">
+      
+      <!-- Screen Bezel -->
+      <div class="tv-bezel">
+        <div class="crt-screen-container" id="crt-screen">
+          
+          <!-- Image & Video Media Stage -->
+          <div class="crt-stage" id="crt-stage">
+            <img id="tv-gif" class="crt-media" src="" alt="GIF-TV Net Art Broadcast" crossorigin="anonymous">
+            <canvas id="fallback-canvas" width="640" height="480"></canvas>
+          </div>
+
+          <!-- Analog TV Static Noise Canvas Overlay -->
+          <canvas id="static-canvas" width="320" height="240"></canvas>
+
+          <!-- Optical & CRT Tube Emulation Layers -->
+          <div class="crt-phosphors"></div>
+          <div class="crt-scanlines"></div>
+          <div class="crt-curvature"></div>
+          <div class="crt-glare"></div>
+
+          <!-- MTV Corner Bug (Net Art Edition) -->
+          <div class="mtv-corner-bug">
+            <div class="mtv-logo-box">
+              <span class="m-letter">M</span>
+              <span class="tv-sub">TV</span>
+            </div>
+            <div class="mtv-corner-sub">BIZARRE</div>
+          </div>
+
+          <!-- Retro Green Phosphor On-Screen Display (OSD) -->
+          <div class="crt-osd" id="crt-osd">
+            <div id="osd-channel">CH 01 - LIQUID MTV</div>
+            <div id="osd-sub" class="osd-tag">STEREO // AV-1</div>
+          </div>
+
+          <!-- MTV Music Video Style Lower-Third Info Card -->
+          <aside class="mtv-lower-third" id="lower-third">
+            <div class="lt-title" id="lt-title">TITLE: VOID TRANSMISSION</div>
+            <div class="lt-meta">
+              ARTIST: <span id="lt-artist">UNKNOWN NET ARTIST</span> // <span id="lt-year">1994</span>
+            </div>
+            <div class="lt-channel" id="lt-channel">CH 01 // 181.25 MHz</div>
+          </aside>
+
+        </div>
+      </div>
+
+      <!-- Bottom Chassis Hardware Bar -->
+      <div class="tv-chassis-bottom">
+        <div class="speaker-grille">
+          <div class="speaker-slit"></div>
+          <div class="speaker-slit"></div>
+          <div class="speaker-slit"></div>
+          <div class="speaker-slit"></div>
+          <div class="speaker-slit"></div>
+        </div>
+
+        <div class="brand-badge">
+          <span class="brand-text">TRINITRON-BDC</span>
+          <span class="brand-sub">NET-ART TUBE 60Hz</span>
+        </div>
+
+        <div class="chassis-controls">
+          <div class="power-indicator">
+            <span class="led-diode on" id="power-led"></span>
+            <span>POWER</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Interactive Floating Remote Dock -->
+  <nav class="remote-dock" aria-label="Telecomando TV">
+    <button class="remote-btn btn-pwr" id="btn-power" title="Accendi / Spegni Televisore (P)">
+      <span class="btn-icon">⏻</span>
+      <span>POWER</span>
+    </button>
+
+    <button class="remote-btn" id="btn-prev-ch" title="Canale Precedente (Freccia Giù)">
+      <span class="btn-icon">▼</span>
+      <span>CH -</span>
+    </button>
+
+    <select class="channel-selector" id="channel-dropdown" title="Seleziona Canale Tematico">
+      <!-- Generated via JS -->
+    </select>
+
+    <button class="remote-btn" id="btn-next-ch" title="Canale Successivo (Freccia Su / Spazio)">
+      <span class="btn-icon">▲</span>
+      <span>CH +</span>
+    </button>
+
+    <button class="remote-btn" id="btn-next-gif" title="Altra GIF su questo canale (G)">
+      <span class="btn-icon">⚡</span>
+      <span>LOOP</span>
+    </button>
+
+    <button class="remote-btn btn-zap" id="btn-zap" title="Zapping Automatico ogni 7s (Z)">
+      <span class="btn-icon">🔀</span>
+      <span id="zap-label">ZAP OFF</span>
+    </button>
+
+    <button class="remote-btn btn-degauss" id="btn-degauss" title="Smagnetizza Schermo Degauss (D)">
+      <span class="btn-icon">⚡</span>
+      <span>DEGAUSS</span>
+    </button>
+
+    <button class="remote-btn" id="btn-audio" title="Audio Analogico On/Off (M)">
+      <span class="btn-icon" id="audio-icon">🔇</span>
+      <span id="audio-label">MUTE</span>
+    </button>
+
+    <button class="remote-btn" id="btn-fullscreen" title="Schermo Intero (F)">
+      <span class="btn-icon">⛶</span>
+      <span>FULL</span>
+    </button>
+  </nav>
+
+  <!-- Keyboard Shortcuts & Accessibility Guide -->
+  <footer class="footer-guide">
+    <span class="kbd-shortcut"><kbd>↑</kbd> <kbd>↓</kbd> o <kbd>Spazio</kbd> Canali</span>
+    <span class="kbd-shortcut"><kbd>G</kbd> Altra GIF</span>
+    <span class="kbd-shortcut"><kbd>D</kbd> Degauss</span>
+    <span class="kbd-shortcut"><kbd>Z</kbd> Zapping Auto</span>
+    <span class="kbd-shortcut"><kbd>M</kbd> Audio</span>
+    <span class="kbd-shortcut"><kbd>P</kbd> Power</span>
+    <span class="kbd-shortcut"><kbd>F</kbd> Schermo Intero</span>
+  </footer>
+
+  <!-- Application Logic Modules -->
+  <script src="js/audio-synth.js"></script>
+  <script src="js/crt-effects.js"></script>
+  <script src="js/channels.js"></script>
+  <script src="js/app.js"></script>
+
+  <!-- PWA Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(err => {
+          console.warn('SW registration skipped:', err);
+        });
+      });
+    }
+  </script>
+</body>
+</html>

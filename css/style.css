@@ -1,0 +1,842 @@
+/* ==========================================================================
+   GIF-TV: Net Art CRT Television
+   Aesthetic: 90s MTV Liquid Television, Vaporwave, Cyberpunk & Retro CRT
+   ========================================================================== */
+
+:root {
+  --bg-void: #060608;
+  --tv-chassis-outer: #1c1c22;
+  --tv-chassis-inner: #0f0f14;
+  --tv-chassis-bezel: #25252e;
+  --screen-phosphor-glow: rgba(57, 255, 20, 0.15);
+  --osd-green: #39ff14;
+  --osd-yellow: #ffea00;
+  --mtv-pink: #ff007f;
+  --mtv-cyan: #00f0ff;
+  --mtv-yellow: #ffee00;
+  --accent-led-red: #ff2222;
+  --accent-led-green: #22ff55;
+  --accent-led-amber: #ffaa00;
+  --font-osd: 'VT323', 'Courier New', monospace;
+  --font-ui: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: var(--bg-void);
+  color: #e0e0e8;
+  font-family: var(--font-ui);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  position: relative;
+  user-select: none;
+}
+
+/* Background Atmospheric Glow */
+.ambient-glow {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
+  max-width: 950px;
+  height: 70vh;
+  max-height: 650px;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.08) 0%, rgba(255, 0, 127, 0.04) 45%, transparent 70%);
+  filter: blur(80px);
+  z-index: 0;
+  pointer-events: none;
+  transition: background 1.5s ease;
+}
+
+/* Header Minimal Net Art Title */
+.header-bar {
+  position: absolute;
+  top: 18px;
+  left: 24px;
+  right: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #66667a;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #9999b0;
+}
+
+.header-logo span.badge {
+  background: #ff007f;
+  color: #fff;
+  font-weight: 900;
+  padding: 2px 6px;
+  border-radius: 2px;
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+
+.header-status {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-status .live-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.header-status .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent-led-red);
+  box-shadow: 0 0 8px var(--accent-led-red);
+  animation: pulse-dot 1.4s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.8); }
+}
+
+/* ==========================================================================
+   TV CHASSIS CONTAINER
+   ========================================================================== */
+
+.tv-wrapper {
+  position: relative;
+  z-index: 2;
+  width: 94vw;
+  max-width: 860px;
+  margin: 40px auto 20px auto;
+  perspective: 1000px;
+}
+
+.tv-chassis {
+  position: relative;
+  background: linear-gradient(145deg, #2a2a34 0%, #16161c 60%, #111116 100%);
+  border-radius: 36px;
+  padding: 28px 28px 24px 28px;
+  box-shadow: 
+    0 25px 60px -10px rgba(0, 0, 0, 0.9),
+    0 10px 20px -5px rgba(0, 0, 0, 0.7),
+    inset 0 2px 2px rgba(255, 255, 255, 0.15),
+    inset 0 -4px 6px rgba(0, 0, 0, 0.8);
+  border: 2px solid #333340;
+}
+
+/* Top Air Vents */
+.tv-chassis::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 4px;
+  background: repeating-linear-gradient(to right, #0d0d12 0px, #0d0d12 6px, transparent 6px, transparent 12px);
+  border-radius: 2px;
+}
+
+/* ==========================================================================
+   CRT SCREEN HOUSING & GLASS BULB
+   ========================================================================== */
+
+.tv-bezel {
+  position: relative;
+  background: #0d0d12;
+  border-radius: 26px;
+  padding: 18px;
+  box-shadow: 
+    inset 0 10px 25px rgba(0, 0, 0, 0.95),
+    inset 0 -6px 15px rgba(0, 0, 0, 0.9),
+    0 2px 4px rgba(255, 255, 255, 0.05);
+  border: 1px solid #1a1a24;
+}
+
+.crt-screen-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #030304;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 
+    inset 0 0 50px rgba(0, 0, 0, 0.95),
+    inset 0 0 120px rgba(0, 0, 0, 0.8);
+  transform: translateZ(0);
+}
+
+/* TV Video & Image Stage */
+.crt-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  overflow: hidden;
+}
+
+.crt-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.2s ease;
+  filter: contrast(1.15) saturate(1.2) brightness(0.96);
+}
+
+.crt-media.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Procedural Fallback Canvas */
+#fallback-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  z-index: 1;
+}
+
+#fallback-canvas.active {
+  display: block;
+}
+
+/* ==========================================================================
+   ANALOG ARTIFACT LAYERS (SCANLINES, PHOSPHOR, NOISE, GLARE)
+   ========================================================================== */
+
+/* Static Noise Overlay Canvas */
+#static-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.95;
+  mix-blend-mode: screen;
+}
+
+/* Phosphor Subpixel Aperture Grille */
+.crt-phosphors {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to right,
+    rgba(255, 0, 0, 0.04) 0px,
+    rgba(0, 255, 0, 0.04) 1px,
+    rgba(0, 0, 255, 0.04) 2px,
+    transparent 3px
+  );
+}
+
+/* Horizontal Scanlines */
+.crt-scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0px,
+    rgba(255, 255, 255, 0) 1px,
+    rgba(0, 0, 0, 0.42) 2px,
+    rgba(0, 0, 0, 0.42) 3px
+  );
+  animation: scanlines-drift 18s linear infinite;
+}
+
+@keyframes scanlines-drift {
+  from { background-position: 0 0; }
+  to { background-position: 0 240px; }
+}
+
+/* Tube Curvature Barrel Vignette */
+.crt-curvature {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 6;
+  pointer-events: none;
+  box-shadow: 
+    inset 0 0 70px rgba(0, 0, 0, 0.85),
+    inset 0 0 140px rgba(0, 0, 0, 0.65);
+  background: radial-gradient(circle at center, transparent 65%, rgba(0, 0, 0, 0.6) 100%);
+}
+
+/* Curved Glass Screen Glare */
+.crt-glare {
+  position: absolute;
+  top: -20%;
+  left: -20%;
+  width: 140%;
+  height: 80%;
+  z-index: 7;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.02) 25%,
+    transparent 50%
+  );
+  border-radius: 50%;
+  transform: rotate(-15deg);
+}
+
+/* ==========================================================================
+   MTV BRANDING & ON-SCREEN GRAPHICS
+   ========================================================================== */
+
+/* Morphing MTV Corner Bug */
+.mtv-corner-bug {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  z-index: 8;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.mtv-logo-box {
+  display: flex;
+  align-items: baseline;
+  font-family: Impact, 'Arial Black', sans-serif;
+  font-weight: 900;
+  letter-spacing: -1px;
+  line-height: 1;
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.9), -1px -1px 0px #000;
+}
+
+.mtv-logo-box .m-letter {
+  font-size: 32px;
+  color: var(--mtv-cyan);
+  display: inline-block;
+  transform: skewX(-8deg);
+  animation: mtv-flicker-cyan 4s infinite alternate;
+}
+
+.mtv-logo-box .tv-sub {
+  font-size: 15px;
+  color: var(--mtv-pink);
+  margin-left: 2px;
+  font-style: italic;
+  animation: mtv-flicker-pink 3.5s infinite alternate;
+}
+
+.mtv-corner-sub {
+  font-family: var(--font-osd);
+  font-size: 11px;
+  color: var(--mtv-yellow);
+  letter-spacing: 2px;
+  margin-top: 2px;
+  text-shadow: 1px 1px 2px #000;
+}
+
+@keyframes mtv-flicker-cyan {
+  0%, 93%, 97% { color: var(--mtv-cyan); filter: drop-shadow(0 0 6px var(--mtv-cyan)); }
+  94% { color: #ffffff; filter: drop-shadow(0 0 15px #fff); }
+  98% { color: #0088ff; filter: none; }
+}
+
+@keyframes mtv-flicker-pink {
+  0%, 88%, 94% { color: var(--mtv-pink); filter: drop-shadow(0 0 6px var(--mtv-pink)); }
+  89% { color: #ffffff; filter: drop-shadow(0 0 15px #fff); }
+  95% { color: #ff55aa; filter: none; }
+}
+
+/* Green Phosphor OSD (On-Screen Display) */
+.crt-osd {
+  position: absolute;
+  top: 20px;
+  left: 24px;
+  z-index: 8;
+  font-family: var(--font-osd);
+  font-size: 22px;
+  color: var(--osd-green);
+  text-shadow: 0 0 8px var(--osd-green), 0 0 2px #fff;
+  letter-spacing: 2px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  line-height: 1.3;
+}
+
+.crt-osd.visible {
+  opacity: 1;
+}
+
+.crt-osd .osd-tag {
+  color: var(--osd-yellow);
+  font-size: 15px;
+  text-shadow: 0 0 6px var(--osd-yellow);
+}
+
+/* Lower-Third MTV Music Video Card */
+.mtv-lower-third {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  max-width: 80%;
+  z-index: 8;
+  background: rgba(8, 8, 12, 0.88);
+  border-left: 4px solid var(--mtv-pink);
+  border-top: 1px solid var(--mtv-cyan);
+  padding: 8px 14px;
+  transform: translateX(-120%);
+  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.2), opacity 0.4s ease;
+  pointer-events: none;
+  box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.8);
+}
+
+.mtv-lower-third.active {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.mtv-lower-third .lt-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.mtv-lower-third .lt-meta {
+  font-size: 11px;
+  color: #a0a0ba;
+  letter-spacing: 0.5px;
+}
+
+.mtv-lower-third .lt-meta span {
+  color: var(--mtv-cyan);
+  font-weight: 600;
+}
+
+.mtv-lower-third .lt-channel {
+  font-family: var(--font-osd);
+  font-size: 11px;
+  color: var(--osd-green);
+  margin-top: 4px;
+  letter-spacing: 1px;
+}
+
+/* ==========================================================================
+   TV CHASSIS PHYSICAL DETAILS & BOTTOM CONTROL PANEL
+   ========================================================================== */
+
+.tv-chassis-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 18px;
+  padding: 0 8px;
+}
+
+/* Vintage Speaker Grille */
+.speaker-grille {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.speaker-slit {
+  width: 4px;
+  height: 24px;
+  background: #0d0d12;
+  border-radius: 2px;
+  box-shadow: inset 0 1px 2px #000, 0 1px 1px rgba(255, 255, 255, 0.05);
+}
+
+/* Brand Badge */
+.brand-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.brand-text {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: #555566;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+.brand-sub {
+  font-size: 7px;
+  letter-spacing: 1.5px;
+  color: #444452;
+}
+
+/* Chassis Power LED & Switch */
+.chassis-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.power-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: #77778a;
+  text-transform: uppercase;
+}
+
+.led-diode {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #331111;
+  border: 1px solid #110000;
+  transition: all 0.3s ease;
+}
+
+.led-diode.on {
+  background: var(--accent-led-red);
+  box-shadow: 0 0 10px var(--accent-led-red), 0 0 3px #fff;
+}
+
+/* ==========================================================================
+   NET ART FLOATING REMOTE DOCK
+   ========================================================================== */
+
+.remote-dock {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  background: rgba(18, 18, 24, 0.85);
+  backdrop-filter: blur(12px);
+  padding: 12px 20px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+  margin-bottom: 24px;
+  max-width: 860px;
+  width: 94vw;
+}
+
+.remote-btn {
+  background: #23232c;
+  color: #c8c8d8;
+  border: 1px solid #333340;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: all 0.15s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+.remote-btn:hover {
+  background: #2e2e3a;
+  color: #ffffff;
+  border-color: #4a4a5e;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
+}
+
+.remote-btn:active {
+  transform: translateY(1px);
+  background: #181820;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.remote-btn.btn-pwr {
+  color: #ff5555;
+}
+.remote-btn.btn-pwr:hover {
+  border-color: #ff5555;
+  box-shadow: 0 0 12px rgba(255, 85, 85, 0.4);
+}
+
+.remote-btn.btn-degauss {
+  color: var(--mtv-cyan);
+}
+.remote-btn.btn-degauss:hover {
+  border-color: var(--mtv-cyan);
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+}
+
+.remote-btn.btn-zap.active {
+  background: #ffaa00;
+  color: #000;
+  border-color: #ffaa00;
+  box-shadow: 0 0 14px rgba(255, 170, 0, 0.6);
+  animation: zap-glow 1.5s infinite alternate;
+}
+
+@keyframes zap-glow {
+  from { box-shadow: 0 0 8px rgba(255, 170, 0, 0.4); }
+  to { box-shadow: 0 0 20px rgba(255, 170, 0, 0.9); }
+}
+
+.btn-icon {
+  font-size: 14px;
+}
+
+/* Channel Quick Selector Dropdown */
+.channel-selector {
+  background: #23232c;
+  color: #c8c8d8;
+  border: 1px solid #333340;
+  border-radius: 10px;
+  padding: 9px 12px;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.channel-selector:hover, .channel-selector:focus {
+  border-color: var(--mtv-cyan);
+  color: #fff;
+}
+
+/* Keyboard Guide Footer */
+.footer-guide {
+  font-size: 11px;
+  color: #555566;
+  letter-spacing: 0.5px;
+  text-align: center;
+  margin-bottom: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+  z-index: 5;
+}
+
+.kbd-shortcut {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+kbd {
+  background: #181820;
+  border: 1px solid #333340;
+  border-radius: 4px;
+  padding: 2px 5px;
+  font-family: monospace;
+  font-size: 10px;
+  color: #88889a;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* ==========================================================================
+   CRT DEGAUSS & POWER ON/OFF ANIMATIONS
+   ========================================================================== */
+
+/* Magnetic Degauss Wobble & Chromatic Glitch */
+.is-degaussing {
+  animation: degauss-shake 1.1s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  filter: hue-rotate(90deg) contrast(1.4) saturate(1.8) drop-shadow(0 0 15px rgba(0, 240, 255, 0.8));
+}
+
+@keyframes degauss-shake {
+  10%, 90% { transform: translate3d(-3px, 1px, 0) scale(1.02); }
+  20%, 80% { transform: translate3d(5px, -3px, 0) scale(0.98); }
+  30%, 50%, 70% { transform: translate3d(-6px, 4px, 0) scale(1.03); }
+  40%, 60% { transform: translate3d(6px, -2px, 0) scale(0.97); }
+}
+
+/* Cathode Power Off: Collapse to razor line, then dot, then off */
+.crt-turn-off {
+  animation: crt-power-off 0.65s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes crt-power-off {
+  0% {
+    transform: scale(1, 1);
+    filter: brightness(1);
+    opacity: 1;
+  }
+  45% {
+    transform: scale(1, 0.003);
+    filter: brightness(2.5);
+    background: #ffffff;
+    opacity: 1;
+  }
+  75% {
+    transform: scale(0.005, 0.003);
+    filter: brightness(5);
+    background: #ffffff;
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(0.001, 0.001);
+    filter: brightness(0);
+    opacity: 0;
+  }
+}
+
+/* Cathode Power On: Bloom from dot to full screen */
+.crt-turn-on {
+  animation: crt-power-on 0.6s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+@keyframes crt-power-on {
+  0% {
+    transform: scale(0.002, 0.002);
+    filter: brightness(6);
+    opacity: 0;
+    background: #ffffff;
+  }
+  35% {
+    transform: scale(1, 0.004);
+    filter: brightness(3);
+    opacity: 1;
+    background: #ffffff;
+  }
+  65% {
+    transform: scale(1, 1);
+    filter: brightness(1.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1, 1);
+    filter: brightness(1);
+    opacity: 1;
+  }
+}
+
+/* Screen is powered off state */
+.screen-off .crt-stage,
+.screen-off .crt-osd,
+.screen-off .mtv-corner-bug,
+.screen-off .mtv-lower-third,
+.screen-off #static-canvas {
+  display: none !important;
+}
+
+.screen-off {
+  background: #020203 !important;
+}
+
+/* Fullscreen Mode */
+body.is-fullscreen {
+  background: #000;
+}
+
+body.is-fullscreen .tv-wrapper {
+  max-width: 100vw;
+  width: 100vw;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.is-fullscreen .tv-chassis {
+  border-radius: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+body.is-fullscreen .tv-bezel {
+  height: calc(100vh - 70px);
+  padding: 10px;
+}
+
+body.is-fullscreen .crt-screen-container {
+  height: 100%;
+  aspect-ratio: auto;
+}
+
+body.is-fullscreen .header-bar,
+body.is-fullscreen .footer-guide {
+  display: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .tv-chassis {
+    padding: 16px 16px 14px 16px;
+    border-radius: 24px;
+  }
+  .tv-bezel {
+    padding: 10px;
+    border-radius: 18px;
+  }
+  .mtv-logo-box .m-letter {
+    font-size: 24px;
+  }
+  .mtv-logo-box .tv-sub {
+    font-size: 12px;
+  }
+  .crt-osd {
+    font-size: 17px;
+  }
+  .remote-dock {
+    padding: 10px 14px;
+    gap: 6px;
+  }
+  .remote-btn {
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+}
