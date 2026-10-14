@@ -1,7 +1,7 @@
 # 📺 GIF-TV // Net Art CRT Television & Lo-Fi Broadcast Stream
 
 <p align="center">
-  <img src="https://emaf205.com/github/assets/covers/gif-tv.jpg" alt="GIF-TV Cover Artwork" width="100%">
+  <img src="assets/social-preview.jpg" alt="GIF-TV Cover Artwork" width="100%">
 </p>
 
 > **"A vintage phosphor cathode ray tube tuned into an endless, surreal broadcast of 90s MTV Liquid Television loops."**  
